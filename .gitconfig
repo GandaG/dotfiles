@@ -52,5 +52,9 @@
 [help]
     autocorrect = 1
 
+[user]
+    name = Daniel Nunes
+    email = daniel.henri.nunes@gmail.com
+
 [pull]
     ff = only

@@ -33,26 +33,3 @@ for file in $DOTFILES; do
   echo "Creating link at ""$HOME"/"$(basename "$file")"""
   ln -s "$file" "$HOME/$(basename "$file")"
 done
-
-
-# configure git
-echo ""
-echo "Configuring Git..."
-
-while true; do
-  printf "Enter the name to use with git: "
-  read -r git_name
-  case $git_name in
-    ("") echo "Please enter a valid name.";;
-    (*) git config --global user.name "$git_name"; break;;
-  esac
-done
-
-while true; do
-  printf "Enter the email adress to use with git: "
-  read -r git_email
-  case $git_email in
-    ("") echo "Please enter a valid email address.";;
-    (*) git config --global user.email "$git_email"; break;;
-  esac
-done
