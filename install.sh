@@ -33,3 +33,29 @@ for file in $DOTFILES; do
   echo "Creating link at ""$HOME"/"$(basename "$file")"""
   ln -s "$file" "$HOME/$(basename "$file")"
 done
+
+
+# Setup email password
+agenthome="$HOME"/.gnupg/gpg-agent.conf
+mkdir -p "$HOME"/.gnupg
+if [ -e "$agenthome" ]; then
+  if [ -L "$agenthome" ]; then
+    rm "$agenthome"
+  else
+    mv "$agenthome" "$OLDDIR"/gpg-agent.conf
+  fi
+fi
+ln -s "$BASEDIR"/gpg-agent.conf "$agenthome"
+echo
+echo "Enter email password to encrypt. Press Enter+Ctrl-D to finish..."
+gpg2 --encrypt --yes -o "$HOME"/.gnupg/.email-password.gpg -r daniel.henri.nunes@gmail.com -
+
+echo "Running initial maildir sync..."
+mbsync -a
+
+echo "Adding mail sync job to crontab..."
+tmpfile=$(mktemp)
+crontab -l > "$tmpfile"
+grep "$HOME/.mutt/maildir_sync.sh" "$tmpfile" || echo "*/1 * * * * $HOME/.mutt/maildir_sync.sh" >> "$tmpfile"
+crontab "$tmpfile"
+rm "$tmpfile"
