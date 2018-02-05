@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 BASEDIR="$(dirname "$(cd "$(dirname "$0")" && pwd -P)/$(basename "$0")")"
-OLDDIR="$BASEDIR"_old
+OLDDIR="$HOME/$(basename "$BASEDIR")"_old
 DOTFILES="$BASEDIR/.*"
 IGNOREFILES=". .. .git .gitignore .gitattributes .gitmodules"
 
@@ -22,6 +22,7 @@ for file in $DOTFILES; do
 
   if [ -e "$HOME/$(basename "$file")" ]; then
     if [ -L "$HOME/$(basename "$file")" ]; then
+      echo "Removing $HOME/$(basename "$file")"
       rm "$HOME/$(basename "$file")"
     else
       echo "Moving ""$HOME"/"$(basename "$file")"" to ""$OLDDIR"/"$(basename "$file")"""
@@ -49,9 +50,6 @@ ln -s "$BASEDIR"/gpg-agent.conf "$agenthome"
 echo
 echo "Enter email password to encrypt. Press Enter+Ctrl-D to finish..."
 gpg2 --encrypt --yes -o "$HOME"/.gnupg/.email-password.gpg -r daniel.henri.nunes@gmail.com -
-
-echo "Running initial maildir sync..."
-mbsync -a
 
 echo "Adding mail sync job to crontab..."
 tmpfile=$(mktemp)
