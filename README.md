@@ -11,6 +11,7 @@ These are the dependencies required before installing:
 ```
 git
 vim
+flake8
 mutt
 msmtp
 gpg2 (with already created keys)

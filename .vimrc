@@ -79,6 +79,9 @@ let g:mapleader = ","
 " edit and load vimrc
 map <leader>e :e! $MYVIMRC<CR>
 nmap <leader>w :w!<CR>
+" invert 0 and ^
+noremap 0 ^
+noremap ^ 0
 
 augroup configgroup
     autocmd!
@@ -151,3 +154,5 @@ let g:jellybeans_overrides = {
 \}
 colorscheme jellybeans
 highlight ColorColumn ctermbg=8
+
+let g:syntastic_python_checkers = ['flake8']
