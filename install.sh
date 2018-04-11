@@ -2,7 +2,7 @@
 
 BASEDIR="$(dirname "$(cd "$(dirname "$0")" && pwd -P)/$(basename "$0")")"
 BACKDIR=$BASEDIR/backups
-DOTFILES="bash_profile gitconfig mail mailcap mbsyncrc msmtprc mutt taskrc vim vimrc"
+DOTFILES="bash_profile bashrc gitconfig mail mailcap mbsyncrc msmtprc mutt taskrc vim vimrc"
 
 echo "Updating submodules..."
 (cd "$BASEDIR" && git submodule init && git submodule update --remote)
@@ -14,7 +14,7 @@ for file in $DOTFILES; do
       rm "$HOME/.$file"
     else
       echo "Moving ""$HOME"/."$file"" to ""$BACKDIR"/."$file"""
-      mkdir -pv "$BACKDIR"
+      mkdir -p "$BACKDIR"
       mv "$HOME/.$file" "$BACKDIR/.$file"
     fi
   fi
@@ -31,7 +31,7 @@ if [ -e "$agenthome" ]; then
   if [ -L "$agenthome" ]; then
     rm "$agenthome"
   else
-    mkdir -pv "$BACKDIR"
+    mkdir -p "$BACKDIR"
     mv "$agenthome" "$BACKDIR"/gpg-agent.conf
   fi
 fi
