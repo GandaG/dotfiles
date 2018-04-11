@@ -2,7 +2,7 @@
 
 BASEDIR="$(dirname "$(cd "$(dirname "$0")" && pwd -P)/$(basename "$0")")"
 OLDDIR="$HOME/$(basename "$BASEDIR")"_old
-DOTFILES="gitconfig mail mailcap mbsyncrc msmtprc mutt taskrc vim vimrc"
+DOTFILES="bash_profile gitconfig mail mailcap mbsyncrc msmtprc mutt taskrc vim vimrc"
 
 echo "Updating submodules..."
 (cd "$BASEDIR" && git submodule init && git submodule update --remote)
