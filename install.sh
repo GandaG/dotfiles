@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 BASEDIR="$(dirname "$(cd "$(dirname "$0")" && pwd -P)/$(basename "$0")")"
-OLDDIR="$HOME/$(basename "$BASEDIR")"_old
+BACKDIR=$BASEDIR/backups
 DOTFILES="bash_profile gitconfig mail mailcap mbsyncrc msmtprc mutt taskrc vim vimrc"
 
 echo "Updating submodules..."
@@ -13,9 +13,9 @@ for file in $DOTFILES; do
       echo "Removing $HOME/.$file"
       rm "$HOME/.$file"
     else
-      echo "Moving ""$HOME"/."$file"" to ""$OLDDIR"/."$file"""
-      mkdir -p "$OLDDIR"
-      mv "$HOME/.$file" "$OLDDIR/.$file"
+      echo "Moving ""$HOME"/."$file"" to ""$BACKDIR"/."$file"""
+      mkdir -pv "$BACKDIR"
+      mv "$HOME/.$file" "$BACKDIR/.$file"
     fi
   fi
 
@@ -31,7 +31,8 @@ if [ -e "$agenthome" ]; then
   if [ -L "$agenthome" ]; then
     rm "$agenthome"
   else
-    mv "$agenthome" "$OLDDIR"/gpg-agent.conf
+    mkdir -pv "$BACKDIR"
+    mv "$agenthome" "$BACKDIR"/gpg-agent.conf
   fi
 fi
 ln -s "$BASEDIR"/gpg-agent.conf "$agenthome"
