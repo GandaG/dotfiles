@@ -1,4 +1,4 @@
-#
+#!/usr/bin/env bash
 # ~/.bashrc
 #
 
@@ -10,29 +10,51 @@ stty -ixon
 parse_git_branch () {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) /'
 }
+pacman_install () {
+  sudo pacman -Syu "$@"
+}
+pacman_upgrade () {
+  sudo pacman -Syu
+}
+pacman_uninstall () {
+  sudo pacman -Rs "$@"
+}
 aur_install () {
-  mkdir -pv ~/.aur
-  pushd ~/.aur >/dev/null 2>&1
-  git clone https://aur.archlinux.org/$1.git
-  pushd $1 >/dev/null 2>&1
-  makepkg --noconfirm -sci
-  popd >/dev/null 2>&1
-  popd >/dev/null 2>&1
+  full_upgrade
+  mkdir -pv "$HOME/.aur"
+  pushd "$HOME/.aur" >/dev/null 2>&1 || (echo "Failed cd, check bashrc"; return)
+  for package in "$@"; do
+    git clone "https://aur.archlinux.org/$package.git"
+    pushd "$package" >/dev/null 2>&1 || (echo "Failed cd, check bashrc"; return)
+    makepkg --noconfirm -sci
+    popd >/dev/null 2>&1 || (echo "Failed cd, check bashrc"; return)
+  done
+  popd >/dev/null 2>&1 || (echo "Failed cd, check bashrc"; return)
 }
 aur_upgrade () {
-  pushd ~/.aur >/dev/null 2>&1
+  pushd "$HOME/.aur" >/dev/null 2>&1 || (echo "Failed cd, check bashrc"; return)
   for aur in */; do
-    pushd $aur >/dev/null 2>&1
+    pushd "$aur" >/dev/null 2>&1 || (echo "Failed cd, check bashrc"; return)
     echo "Checking ${aur: : -1}..."
     git fetch
-    if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ] ; then
+    if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ] ; then
       echo "----> Updating ${aur: : -1}..."
       git pull
       makepkg --noconfirm -sci
     fi
-    popd >/dev/null 2>&1
+    popd >/dev/null 2>&1 || (echo "Failed cd, check bashrc"; return)
   done
-  popd >/dev/null 2>&1
+  popd >/dev/null 2>&1 || (echo "Failed cd, check bashrc"; return)
+}
+aur_uninstall () {
+  pacman_uninstall "$@"
+  for package in "$@"; do
+    rm -rf "$HOME/.aur/$package"
+  done
+}
+full_upgrade () {
+  pacman_upgrade
+  aur_upgrade
 }
 
 export PS1="\$(parse_git_branch)\[\033[0;32m\]\u@\w \\$ \[\033[0m\]"
