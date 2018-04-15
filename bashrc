@@ -74,3 +74,7 @@ alias ping='grc -es --colour=on ping'
 
 alias mute='pamixer -m'
 alias unmute='pamixer -u'
+
+# python virtualenvwrapper
+export WORKON_HOME=~/.python_virtualenvs
+source /usr/bin/virtualenvwrapper_lazy.sh
