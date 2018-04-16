@@ -1,5 +1,8 @@
-vim/.netrwhist
+backups
 calcurse/apts
 calcurse/notes
 calcurse/todo
-backups
+config/mpd
+!config/mpd/mpd.conf
+ncmpcpp/error.log
+vim/.netrwhist

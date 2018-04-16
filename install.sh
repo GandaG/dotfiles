@@ -2,7 +2,7 @@
 
 BASEDIR="$(dirname "$(cd "$(dirname "$0")" && pwd -P)/$(basename "$0")")"
 BACKDIR=$BASEDIR/backups
-DOTFILES="bash_profile bashrc calcurse gitconfig mail mailcap mbsyncrc msmtprc mutt taskrc vim vimrc"
+DOTFILES="bash_profile bashrc calcurse gitconfig mail mailcap mbsyncrc msmtprc mutt ncmpcpp taskrc vim vimrc"
 CONF=$HOME/.config
 CONFIGFOLDER=$BASEDIR/config
 
