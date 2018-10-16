@@ -1,0 +1,13 @@
+https://feeds.feedburner.com/blogspot/TZKchapters
+https://practicalguidetoevil.wordpress.com/feed/
+https://www.parahumans.net/feed/
+https://ruffwriterblog.wordpress.com/feed/
+https://tiraas.wordpress.com/feed/
+"exec:~/.config/newsboat/rss_royalroad https://www.royalroad.com/fiction/syndication/18981"
+"exec:~/.config/newsboat/rss_royalroad https://www.royalroad.com/fiction/syndication/8894"
+"exec:~/.config/newsboat/rss_royalroad https://www.royalroad.com/fiction/syndication/1439"
+"exec:~/.config/newsboat/rss_royalroad https://www.royalroad.com/fiction/syndication/10881"
+"exec:~/.config/newsboat/rss_royalroad https://www.royalroad.com/fiction/syndication/16545"
+"exec:~/.config/newsboat/rss_royalroad https://www.royalroad.com/fiction/syndication/8463"
+"exec:~/.config/newsboat/rss_archiveofourown https://archiveofourown.org/works/11478249"
+"exec:~/.config/newsboat/rss_fictionpress https://www.fictionpress.com/s/2961893"

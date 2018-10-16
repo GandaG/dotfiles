@@ -1,0 +1,6 @@
+*
+!.gitignore
+!mbsync.service
+!mbsync.timer
+!rss-sync.service
+!rss-sync.timer

@@ -1,2 +1,0 @@
-text/html; firefox --new-tab %s & sleep 5; test=test -n "$DISPLAY"; needsterminal;
-text/html; lynx -dump %s; nametemplate=%s.html; copiousoutput;

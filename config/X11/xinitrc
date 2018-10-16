@@ -1,0 +1,44 @@
+#!/bin/sh
+
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
+
+# wallpaper and colours
+walresources="$HOME/.cache/wal/colors.Xresources"
+bgfile="$HOME/.config/wall.png"
+wal -g --theme base16-pop
+if [ -f "$walresources" ]; then
+    xrdb -merge "$walresources"
+fi
+hsetroot -fill $bgfile
+wal-set.sh &  # necessary?
+
+# clipboard manager
+autocutsel -fork &
+autocutsel -s PRIMARY -fork &
+
+# storage/backup
+dropbox &
+syncthing -no-browser &
+
+# daemons
+transmission-daemon &
+udiskie &
+xss-lock -- i3lock-wrapper -nef &
+mail-check.py &
+
+# visual
+dunst -config ~/.config/dunst/dunstrc_xr_colors &
+compton --xrender-sync-fence -b
+nvidia-settings -l
+
+# utils
+xdotool mousemove 0 0
+xdotool key Num_Lock
+unclutter &
+
+exec i3

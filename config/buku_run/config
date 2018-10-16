@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+screen_width=$(screen-size.py -w)
+width=$(python -c "print(round($screen_width * .8))")
+str_width=$(python -c "print(round($width * .09))")
+
+_rofi () {
+    rofi -dmenu -i -no-levenshtein-sort -width $width "$@"
+}
+
+# display settings
+display_type=2
+max_str_width=$str_width
+
+# keybindings
+switch_view="Alt+Tab"
+new_bookmark="Alt+n"
+actions="Alt+a"
+edit="Alt+e"
+delete="Alt+d"
+
+# colors
+help_color="#2d7ed8"

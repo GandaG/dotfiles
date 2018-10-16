@@ -1,0 +1,41 @@
+[bar/power]
+monitor =
+height = ${bar_height}
+border-top-size = ${height}
+border-bottom-size = ${height}
+border-left-size = ${width}
+border-right-size = ${width}
+override-redirect = true
+enable-ipc = true
+background = ${background}
+foreground = ${foreground}
+line-size = 0
+border-size = 0
+border-color = ${border_colour}
+padding-left = 0
+padding-right = 0
+module-margin = 3
+font-0 = mono:pixelsize=${font_size};2
+modules-center = suspend poweroff reboot cancel
+
+[module/suspend]
+type = custom/ipc
+hook-0 = echo suspend
+initial = 1
+click-left = polybar-msg -p %pid% cmd quit && systemctl suspend
+
+[module/poweroff]
+type = custom/text
+content = poweroff
+click-left = systemctl poweroff
+
+[module/reboot]
+type = custom/text
+content = reboot
+click-left = systemctl reboot
+
+[module/cancel]
+type = custom/ipc
+hook-0 = echo cancel
+initial = 1
+click-left = polybar-msg -p %pid% cmd quit

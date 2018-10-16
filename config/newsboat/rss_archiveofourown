@@ -1,0 +1,94 @@
+#!/usr/bin/python3
+
+# MIT License
+
+# Copyright (c) 2018 Daniel Nunes
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+# USAGE
+# rss_archiveofourown <id>
+#
+# id - The number found in the work's url after 'archiveofourown.org/works/'
+#
+# The built feed will be printed to stdout.
+#
+# There is no code to account for improper usage, you're on your own.
+
+
+import re
+import requests
+import sys
+import xml.etree.ElementTree as etree
+
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+
+
+MAX_CHAPS = 10
+
+
+source = sys.argv[1]
+work_id = re.findall(r'https://archiveofourown.org/works/(\d+)/?.*', source)[0]
+# work_id = sys.argv[1]
+index_url = 'https://archiveofourown.org/works/{}/navigate'.format(work_id)
+
+response = requests.get(index_url)
+response.raise_for_status()
+chap_soup = BeautifulSoup(response.content, features="html5lib")
+
+new_feed = etree.Element('rss', version="2.0")
+channel = etree.SubElement(new_feed, 'channel')
+title = etree.SubElement(channel, 'title')
+title.text = chap_soup.find('a', href='/works/{}'.format(work_id)).string
+link = etree.SubElement(new_feed, 'link')
+link.text = 'https://archiveofourown.org/works/{}'.format(work_id)
+
+chap_list = chap_soup.find('ol', {'class': 'chapter index group'})
+for chap in reversed(chap_list.contents):
+    if not str(chap).strip():
+        continue
+    item = etree.SubElement(channel, 'item')
+    chap_url = urljoin(index_url, chap.a['href'])
+    response = requests.get(chap_url)
+    response.raise_for_status()
+    item_soup = BeautifulSoup(response.content, features='html5lib')
+
+    title_div = item_soup.find('div', attrs={'class': 'chapter preface group'})
+    title = etree.SubElement(item, 'title')
+    title.text = "".join(title_div.h3.strings).strip()
+
+    link = etree.SubElement(item, 'link')
+    link.text = chap_url
+
+    guid = etree.SubElement(item, 'guid', isPermaLink='false')
+    guid.text = chap_url
+
+    desc = etree.SubElement(item, 'description')
+    desc_div = item_soup.find('div', attrs={'class': 'userstuff module'})
+    children = desc_div.children
+    desc_txt = "".join(str(child) for child in children if str(child).strip())
+    desc.text = desc_txt
+
+    MAX_CHAPS -= 1
+    if MAX_CHAPS == 0:
+        break
+
+print(etree.tostring(new_feed, encoding='unicode'))

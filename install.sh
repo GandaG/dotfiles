@@ -2,9 +2,14 @@
 
 BASEDIR="$(dirname "$(cd "$(dirname "$0")" && pwd -P)/$(basename "$0")")"
 BACKDIR=$BASEDIR/backups
-DOTFILES="bash_profile bashrc calcurse gitconfig mail mailcap mbsyncrc msmtprc mutt ncmpcpp taskrc vim vimrc"
-CONF=$HOME/.config
-CONFIGFOLDER=$BASEDIR/config
+HOMEDIR=$BASEDIR/home
+BINDIR=$BASEDIR/bin
+MISCDIR=$BASEDIR/misc
+CONFIGDIR=$BASEDIR/config
+
+HOMEDEST="$HOME"
+BINDEST="$HOME/.local/bin"
+CONFIGDEST="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 # test_file function
 ## Checks whether the file is a real file, a symlink or doesn't exist.
@@ -12,71 +17,83 @@ CONFIGFOLDER=$BASEDIR/config
 ## 1: file is symlink
 ## 2: file is real
 test_file () {
-  if [ -L $1 ]; then
+  if [ -L "$1" ]; then
     echo 1
-  elif [ -e $1 ]; then
+  elif [ -e "$1" ]; then
     echo 2
   else
     echo 0
   fi
 }
 
-echo "Updating submodules..."
-(cd "$BASEDIR" && git submodule init && git submodule update --remote)
-
-for file in $DOTFILES; do
-  case $(test_file "$HOME/.$file") in
+# link_file function
+## Handles all the linking
+## arg1: file source path
+## arg2: file destination path
+## arg3: prefix to commands (like sudo) [optional]
+link_file () {
+  case $(test_file "$2") in
     2)
-      echo "Moving ""$HOME"/."$file"" to ""$BACKDIR"/."$file"""
+      fname=$(basename $2)
+      echo "Moving $2 to $BACKDIR/$fname"
       mkdir -p "$BACKDIR"
-      mv "$HOME/.$file" "$BACKDIR/.$file"
+      $3 mv "$2" "$BACKDIR/$fname"
       ;;
     1)
-      echo "Removing $HOME/.$file"
-      rm "$HOME/.$file"
+      # echo "Removing $2"
+      $3 rm "$2"
       ;;
   esac
-  echo "Creating link at ""$HOME"/."$file"""
-  ln -s "$BASEDIR/$file" "$HOME/.$file"
-done
+  echo "Creating link at $2"
+  $3 ln -s "$1" "$2"
+}
 
-mkdir -p $CONF
-for folder in $CONFIGFOLDER/*; do
-  folder=$(basename $folder)
-  case $(test_file "$CONF/$folder") in
-    2)
-      echo "Moving $CONF/$folder to $BACKDIR/$folder"
-      mkdir -p $BACKDIR
-      mv "$CONF/$folder" "$BACKDIR/$folder"
-      ;;
-    1)
-      echo "Removing $CONF/$folder"
-      rm "$CONF/$folder"
-      ;;
-  esac
-  echo "Creating link at $CONF/$folder"
-  ln -s "$CONFIGFOLDER/$folder" "$CONF/$folder"
-done
+# link_all_files function
+## Handles all files in a folder
+## arg1: Folder where files reside (source)
+## args2: Target folder to link to (destination)
+link_all_files () {
+  mkdir -p "$2"
+  for file in "$1"/*; do
+    file=$(basename "$file")
+    link_file "$1/$file" "$2/$file"
+  done
+}
 
-# Setup email password
-agenthome="$HOME"/.gnupg/gpg-agent.conf
-mkdir -p "$HOME"/.gnupg
-if [ -e "$agenthome" ]; then
-  if [ -L "$agenthome" ]; then
-    rm "$agenthome"
-  else
-    mkdir -p "$BACKDIR"
-    mv "$agenthome" "$BACKDIR"/gpg-agent.conf
-  fi
-fi
-ln -s "$BASEDIR"/gpg-agent.conf "$agenthome"
+shopt -s dotglob
+
+echo "Updating submodules..."
+(cd "$BASEDIR" && git submodule init && git submodule update --remote --recursive)
 echo
-echo "Enter email password to encrypt. Press Enter+Ctrl-D to finish..."
-gpg2 --encrypt --yes -o "$HOME"/.gnupg/.email-password.gpg -r daniel.henri.nunes@gmail.com -
 
-echo "Adding mail sync job to crontab..."
-tmpfile=$(mktemp)
-crontab -l > "$tmpfile"
-grep "$HOME/.mutt/maildir_sync.sh" "$tmpfile" || echo "*/1 * * * * $HOME/.mutt/maildir_sync.sh" >> "$tmpfile"
-crontab "$tmpfile"
-rm "$tmpfile"
+link_all_files "$HOMEDIR" "$HOMEDEST"
+echo
+
+link_all_files "$CONFIGDIR" "$CONFIGDEST"
+echo
+
+link_all_files "$BINDIR" "$BINDEST"
+echo
+
+echo "Setup GnuPG..."
+agenthome="$CONFIGDEST"/gnupg/gpg-agent.conf
+mkdir -p "$CONFIGDEST"/gnupg
+link_file "$MISCDIR/gpg-agent.conf" "$agenthome"
+echo
+
+echo "Setup less..."
+lesskey "$CONFIGDIR"/less/config
+echo
+
+echo "Adding services to systemd..."
+gettyovr_d=/etc/systemd/system/getty@.service.d
+gettyovr="$gettyovr_d"/override.conf
+sudo mkdir -p "$gettyovr_d"
+link_file "$MISCDIR"/getty_override.conf "$gettyovr" sudo
+link_file "$MISCDIR"/issue.sh /usr/local/sbin/issue.sh sudo
+link_file "$MISCDIR"/issue_motd.service /etc/systemd/system/issue_motd.service sudo
+sudo systemctl enable issue_motd.service
+systemctl --user enable --now mbsync.timer
+systemctl --user enable --now rss-sync.timer
+
+shopt -u dotglob

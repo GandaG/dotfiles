@@ -1,8 +1,1 @@
 backups
-calcurse/apts
-calcurse/notes
-calcurse/todo
-config/mpd
-!config/mpd/mpd.conf
-ncmpcpp/error.log
-vim/.netrwhist

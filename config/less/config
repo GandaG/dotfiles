@@ -1,0 +1,5 @@
+#command
+l noaction 4\e)
+\kr noaction 4\e)
+h noaction 4\e(
+\kl noaction 4\e(
