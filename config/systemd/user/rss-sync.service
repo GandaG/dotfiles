@@ -1,7 +1,0 @@
-[Unit]
-Description=RSS feed synchronization service
-After=network.target network-online.target dbus.socket
-
-[Service]
-Type=oneshot
-ExecStart=%h/.local/bin/rss-check.py

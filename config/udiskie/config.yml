@@ -1,6 +1,0 @@
-program_options:
-    tray: auto
-    file_manager: thunar
-notifications:
-    device_added: false
-    device_removed: false

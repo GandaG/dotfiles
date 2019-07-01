@@ -31,7 +31,6 @@ set backspace=indent,eol,start  " allow backspace in insert mode
 set showcmd                     " show command in bottom bar
 set noshowmode                  " show current mode down the bottom
 set history=1000                " store lots of :cmdline history
-set cursorline                  " highlight current line
 filetype plugin on              " load filetype-sepcific plugin files
 filetype indent on              " load filetype-specific indent files
 set visualbell t_vb=            " no sounds
@@ -128,7 +127,7 @@ augroup pythongroup
     au FileType python set cindent
     au FileType python set cinkeys-=0#
     au FileType python set indentkeys-=0#
-    au FileType python setlocal colorcolumn=80
+    au FileType python setlocal colorcolumn=88
 augroup END
 
 execute pathogen#infect()
@@ -138,7 +137,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_theme='wal'
+let g:airline_theme='molokai'
 set ttimeoutlen=10
 
 let MRU_Max_Entries = 400
@@ -152,14 +151,7 @@ if has('python3')
 endif
 nnoremap <leader>u :GundoToggle<CR>
 
-colorscheme wal
-
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = "--max-line-length=80 --select=C,E,F,W,B,B950 --ignore=E501"
 
 let g:vimtex_view_method = 'zathura'
-
-let g:jedi#force_py_version=3
-autocmd FileType python setlocal completeopt-=preview
-let g:jedi#completions_command = "<C-n>"
-
-let g:SuperTabDefaultCompletionType = "<c-n>"

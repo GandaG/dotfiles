@@ -9,7 +9,7 @@ CONFIGDIR=$BASEDIR/config
 
 HOMEDEST="$HOME"
 BINDEST="$HOME/.local/bin"
-CONFIGDEST="${XDG_CONFIG_HOME:-$HOME/.config}"
+CONFIGDEST="$$HOME/.config"
 
 # test_file function
 ## Checks whether the file is a real file, a symlink or doesn't exist.
@@ -93,7 +93,5 @@ link_file "$MISCDIR"/getty_override.conf "$gettyovr" sudo
 link_file "$MISCDIR"/issue.sh /usr/local/sbin/issue.sh sudo
 link_file "$MISCDIR"/issue_motd.service /etc/systemd/system/issue_motd.service sudo
 sudo systemctl enable issue_motd.service
-systemctl --user enable --now mbsync.timer
-systemctl --user enable --now rss-sync.timer
 
 shopt -u dotglob

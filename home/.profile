@@ -6,11 +6,12 @@ export LOCAL_BIN="$HOME"/.local/bin
 export PATH=$PATH:$LOCAL_BIN
 export EDITOR="vim"
 export VISUAL="vim"
-export TERMINAL="st"
-export BROWSER="qutebrowser"
+export TERMINAL="xfce4-terminal"
+export BROWSER="firefox"
 
 # QT
 export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
 # xdg
 export XDG_CONFIG_HOME="$HOME"/.config
@@ -54,6 +55,3 @@ export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 
 # xauth
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-
-# xinit
-export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc

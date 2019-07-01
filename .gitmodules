@@ -50,15 +50,6 @@
 	path = config/vim/bundle/vimtex
 	url = https://github.com/lervag/vimtex.git
     ignore = all
-[submodule "config/vim/bundle/jedi-vim"]
-	path = config/vim/bundle/jedi-vim
-	url = https://github.com/davidhalter/jedi-vim.git
-    ignore = all
-[submodule "config/vim/bundle/supertab"]
-	path = config/vim/bundle/supertab
-	url = https://github.com/ervandew/supertab.git
-    ignore = all
-[submodule "config/vim/bundle/wal.vim"]
-	path = config/vim/bundle/wal.vim
-	url = https://github.com/dylanaraps/wal.vim.git
-    ignore = all
+[submodule ".config/vim/bundle/molokai"]
+	path = .config/vim/bundle/molokai
+	url = https://github.com/fatih/molokai.git

@@ -1,1 +1,4 @@
 backups
+.config/git/gitk
+.config/less/lesskey
+.config/vim/.netrwhist

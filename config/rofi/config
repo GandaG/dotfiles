@@ -1,7 +1,0 @@
-rofi.theme:             ~/.cache/wal/colors-rofi-dark.rasi
-rofi.lines:             15
-rofi.bw:                0
-rofi.hide-scrollbar:    true
-rofi.width:             30
-rofi.show-icons:        true
-rofi.separator-style:   solid

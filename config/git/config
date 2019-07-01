@@ -28,6 +28,8 @@
 
 [alias]
     l = log --decorate --oneline --graph
+    ll = log --graph --oneline --decorate --branches --tags
+    lll = log --graph --oneline --decorate --all
     st = status
     ci = commit
     review = diff --cached
