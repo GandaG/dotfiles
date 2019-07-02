@@ -8,8 +8,8 @@ MISCDIR=$BASEDIR/misc
 CONFIGDIR=$BASEDIR/config
 
 HOMEDEST="$HOME"
-BINDEST="$HOME/.local/bin"
-CONFIGDEST="$$HOME/.config"
+BINDEST="$HOME"/.local/bin
+CONFIGDEST="$HOME"/.config
 
 # test_file function
 ## Checks whether the file is a real file, a symlink or doesn't exist.
@@ -83,15 +83,5 @@ echo
 
 echo "Setup less..."
 lesskey "$CONFIGDIR"/less/config
-echo
-
-echo "Adding services to systemd..."
-gettyovr_d=/etc/systemd/system/getty@.service.d
-gettyovr="$gettyovr_d"/override.conf
-sudo mkdir -p "$gettyovr_d"
-link_file "$MISCDIR"/getty_override.conf "$gettyovr" sudo
-link_file "$MISCDIR"/issue.sh /usr/local/sbin/issue.sh sudo
-link_file "$MISCDIR"/issue_motd.service /etc/systemd/system/issue_motd.service sudo
-sudo systemctl enable issue_motd.service
 
 shopt -u dotglob
