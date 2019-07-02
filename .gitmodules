@@ -50,6 +50,6 @@
 	path = config/vim/bundle/vimtex
 	url = https://github.com/lervag/vimtex.git
     ignore = all
-[submodule ".config/vim/bundle/molokai"]
-	path = .config/vim/bundle/molokai
+[submodule "config/vim/bundle/molokai"]
+	path = config/vim/bundle/molokai
 	url = https://github.com/fatih/molokai.git
