@@ -52,6 +52,3 @@ export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 
 # wine
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
-
-# xauth
-export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority

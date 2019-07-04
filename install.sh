@@ -93,10 +93,5 @@ if [ -d "$orig_gpg" ]; then
     mv -f "$orig_gpg"/* "$GNUPGHOME"
     rm -rf "$orig_gpg"
 fi
-orig_xauth="$HOME"/.Xauthority
-if [ -e "$orig_xauth" ]; then
-    echo "Moving original Xauthority to new location..."
-    mv -f "$orig_xauth" "$XAUTHORITY"
-fi
 
 shopt -u dotglob
