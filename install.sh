@@ -93,5 +93,7 @@ if [ -d "$orig_gpg" ]; then
     mv -f "$orig_gpg"/* "$GNUPGHOME"
     rm -rf "$orig_gpg"
 fi
+sudo chown -R "$USER" "$GNUPGHOME"
+chmod 700 "$GNUPGHOME"
 
 shopt -u dotglob
