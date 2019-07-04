@@ -83,5 +83,20 @@ echo
 
 echo "Setup less..."
 lesskey "$CONFIGDIR"/less/config
+echo
+
+echo "Final configurations..."
+source "$HOMEDIR"/.profile
+orig_gpg="$HOME"/.gnupg
+if [ -d "$orig_gpg" ]; then
+    echo "Moving original gnupg files to new location..."
+    mv -f "$orig_gpg"/* "$GNUPGHOME"
+    rm -rf "$orig_gpg"
+fi
+orig_xauth="$HOME"/.Xauthority
+if [ -e "$orig_xauth" ]; then
+    echo "Moving original Xauthority to new location..."
+    mv -f "$orig_xauth" "$XAUTHORITY"
+fi
 
 shopt -u dotglob
