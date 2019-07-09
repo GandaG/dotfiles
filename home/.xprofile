@@ -1,5 +1,0 @@
-#!/bin/sh
-
-birdtray &
-dropbox &
-syncthing -no-browser &

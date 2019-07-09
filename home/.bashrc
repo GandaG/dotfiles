@@ -99,3 +99,8 @@ if ${use_color} ; then
     fi
 fi
 unset use_color safe_term match_lhs sh
+
+if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+fi

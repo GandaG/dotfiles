@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-notifyd" version="1.0">
+  <property name="primary-monitor" type="int" value="1"/>
+  <property name="theme" type="string" value="Adapta-Nokto-Eta-Maia"/>
+  <property name="notification-log" type="bool" value="true"/>
+  <property name="log-level" type="int" value="1"/>
+</channel>
