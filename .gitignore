@@ -1,4 +1,5 @@
 backups
-.config/git/gitk
-.config/less/lesskey
-.config/vim/.netrwhist
+config/git/gitk
+config/less/lesskey
+config/vim/.netrwhist
+config/xfce4/terminal/accels.scm
