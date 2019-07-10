@@ -75,14 +75,19 @@ echo
 link_all_files "$BINDIR" "$BINDEST"
 echo
 
+echo "Setup less..."
+lesskey "$CONFIGDIR"/less/config
+echo
+
 echo "Setup GnuPG..."
 agenthome="$CONFIGDEST"/gnupg/gpg-agent.conf
 mkdir -p "$CONFIGDEST"/gnupg
 link_file "$MISCDIR/gpg-agent.conf" "$agenthome"
 echo
 
-echo "Setup less..."
-lesskey "$CONFIGDIR"/less/config
+echo "Setup LightDM..."
+greeterhome=/etc/lightdm/lightdm-gtk-greeter.conf
+link_file "$MISCDIR"/lightdm-gtk-greeter.conf "$greeterhome" sudo
 echo
 
 echo "Final configurations..."
