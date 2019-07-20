@@ -79,6 +79,11 @@ echo "Setup less..."
 lesskey "$CONFIGDIR"/less/config
 echo
 
+echo "Setup desktop wallpaper..."
+wallpaperdest="/usr/share/backgrounds/desktop_wallpaper.jpg"
+yes | sudo cp "$MISCDIR/wallpaper.jpg" "$wallpaperdest"
+echo
+
 echo "Setup GnuPG..."
 agenthome="$CONFIGDEST"/gnupg/gpg-agent.conf
 mkdir -p "$CONFIGDEST"/gnupg
