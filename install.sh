@@ -87,7 +87,7 @@ echo
 
 echo "Setup LightDM..."
 greeterhome=/etc/lightdm/lightdm-gtk-greeter.conf
-link_file "$MISCDIR"/lightdm-gtk-greeter.conf "$greeterhome" sudo
+yes | sudo cp "$MISCDIR"/lightdm-gtk-greeter.conf "$greeterhome"
 echo
 
 echo "Final configurations..."
