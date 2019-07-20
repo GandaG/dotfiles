@@ -9,7 +9,7 @@
       <property name="background-style" type="int" value="0"/>
       <property name="disable-struts" type="bool" value="false"/>
       <property name="enter-opacity" type="int" value="100"/>
-      <property name="icon-size" type="int" value="0"/>
+      <property name="icon-size" type="uint" value="0"/>
       <property name="leave-opacity" type="int" value="100"/>
       <property name="length" type="int" value="100"/>
       <property name="length-adjust" type="bool" value="true"/>
@@ -24,12 +24,10 @@
         <value type="int" value="6"/>
         <value type="int" value="7"/>
         <value type="int" value="8"/>
-        <value type="int" value="9"/>
-        <value type="int" value="10"/>
       </property>
       <property name="position" type="string" value="p=6;x=0;y=0"/>
       <property name="position-locked" type="bool" value="true"/>
-      <property name="size" type="int" value="30"/>
+      <property name="size" type="uint" value="40"/>
     </property>
   </property>
   <property name="plugins" type="empty">
@@ -40,7 +38,7 @@
     </property>
     <property name="plugin-3" type="string" value="tasklist">
       <property name="flat-buttons" type="bool" value="false"/>
-      <property name="grouping" type="int" value="1"/>
+      <property name="grouping" type="uint" value="1"/>
       <property name="show-handle" type="bool" value="false"/>
       <property name="show-labels" type="bool" value="false"/>
       <property name="sort-order" type="int" value="0"/>
@@ -50,16 +48,7 @@
       <property name="expand" type="bool" value="true"/>
       <property name="style" type="int" value="0"/>
     </property>
-    <property name="plugin-5" type="string" value="pager">
-      <property name="miniature-view" type="bool" value="true"/>
-      <property name="rows" type="int" value="1"/>
-      <property name="workspace-scrolling" type="bool" value="false"/>
-    </property>
-    <property name="plugin-6" type="string" value="separator">
-      <property name="expand" type="bool" value="false"/>
-      <property name="style" type="int" value="0"/>
-    </property>
-    <property name="plugin-7" type="string" value="systray">
+    <property name="plugin-5" type="string" value="systray">
       <property name="names-ordered" type="array">
         <value type="string" value="trojita"/>
         <value type="string" value="sylpheed"/>
@@ -88,20 +77,20 @@
         <value type="string" value="xnoise"/>
       </property>
       <property name="show-frame" type="bool" value="false"/>
-      <property name="size-max" type="int" value="24"/>
+      <property name="size-max" type="uint" value="24"/>
       <property name="square-icons" type="bool" value="false"/>
     </property>
-    <property name="plugin-8" type="string" value="pulseaudio">
+    <property name="plugin-6" type="string" value="pulseaudio">
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
     </property>
-    <property name="plugin-9" type="string" value="clock">
+    <property name="plugin-7" type="string" value="clock">
       <property name="digital-format" type="string" value="%R"/>
       <property name="flash-separators" type="bool" value="false"/>
       <property name="fuzziness" type="int" value="0"/>
       <property name="mode" type="int" value="2"/>
       <property name="show-seconds" type="bool" value="false"/>
     </property>
-    <property name="plugin-10" type="string" value="separator">
+    <property name="plugin-8" type="string" value="separator">
       <property name="expand" type="bool" value="false"/>
       <property name="style" type="int" value="0"/>
     </property>

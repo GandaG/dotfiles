@@ -6,5 +6,6 @@
     <property name="blank-on-ac" type="int" value="0"/>
     <property name="dpms-on-ac-sleep" type="int" value="0"/>
     <property name="dpms-on-ac-off" type="int" value="0"/>
+    <property name="power-button-action" type="uint" value="4"/>
   </property>
 </channel>
