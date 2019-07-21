@@ -85,25 +85,13 @@ yes | sudo cp "$MISCDIR/arch_icon.svg" "/usr/share/icons/"
 echo
 
 echo "Setup GnuPG..."
-agenthome="$CONFIGDEST"/gnupg/gpg-agent.conf
-mkdir -p "$CONFIGDEST"/gnupg
-link_file "$MISCDIR/gpg-agent.conf" "$agenthome"
+agenthome="$CONFIGDEST"/gnupg
+mkdir -p "$agenthome"
+link_file "$MISCDIR/gpg-agent.conf" "$agenthome/gpg-agent.conf"
 echo
 
 echo "Setup LightDM..."
-greeterhome=/etc/lightdm/lightdm-gtk-greeter.conf
-yes | sudo cp "$MISCDIR"/lightdm-gtk-greeter.conf "$greeterhome"
+yes | sudo cp "$MISCDIR"/lightdm-gtk-greeter.conf "/etc/lightdm/"
 echo
-
-echo "Final configurations..."
-source "$HOMEDIR"/.profile
-orig_gpg="$HOME"/.gnupg
-if [ -d "$orig_gpg" ]; then
-    echo "Moving original gnupg files to new location..."
-    mv -f "$orig_gpg"/* "$GNUPGHOME"
-    rm -rf "$orig_gpg"
-fi
-sudo chown -R "$USER" "$GNUPGHOME"
-chmod 700 "$GNUPGHOME"
 
 shopt -u dotglob
