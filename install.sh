@@ -79,9 +79,9 @@ echo "Setup less..."
 lesskey "$CONFIGDIR"/less/config
 echo
 
-echo "Setup desktop wallpaper..."
-wallpaperdest="/usr/share/backgrounds/desktop_wallpaper.jpg"
-yes | sudo cp "$MISCDIR/wallpaper.jpg" "$wallpaperdest"
+echo "Setup wallpaper and icons..."
+yes | sudo cp "$MISCDIR/wallpaper.jpg" "/usr/share/backgrounds/"
+yes | sudo cp "$MISCDIR/arch_icon.svg" "/usr/share/icons/"
 echo
 
 echo "Setup GnuPG..."
