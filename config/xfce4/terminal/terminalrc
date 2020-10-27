@@ -20,3 +20,17 @@ BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 BackgroundDarkness=1,000000
 ScrollingOnOutput=FALSE
 FontName=Inconsolata 12
+MiscBellUrgent=FALSE
+MiscMouseWheelZoom=TRUE
+MiscMiddleClickOpensUri=FALSE
+MiscCopyOnSelect=FALSE
+MiscShowRelaunchDialog=TRUE
+MiscRewrapOnResize=TRUE
+MiscUseShiftArrowsToScroll=FALSE
+MiscSlimTabs=FALSE
+MiscNewTabAdjacent=FALSE
+MiscSearchDialogOpacity=100
+MiscShowUnsafePasteDialog=TRUE
+ShortcutsNoMenukey=TRUE
+ShortcutsNoHelpkey=TRUE
+

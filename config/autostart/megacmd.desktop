@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+GenericName=File Synchronizer
+Name=MEGAcmd
+Comment=Easy automated syncing between your computers and your MEGA cloud drive.
+TryExec=mega-cmd-server
+Exec=mega-cmd-server
+Icon=mega
+Terminal=false
+Categories=Network;System;
+StartupNotify=false
+X-GNOME-Autostart-Delay=30

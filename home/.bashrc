@@ -58,6 +58,3 @@ fi
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-# python virtualenvwrapper
-export WORKON_HOME="$XDG_DATA_HOME"/.python_virtualenvs
-source /usr/bin/virtualenvwrapper_lazy.sh

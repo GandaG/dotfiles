@@ -27,8 +27,11 @@
       </property>
       <property name="position" type="string" value="p=6;x=0;y=0"/>
       <property name="position-locked" type="bool" value="true"/>
-      <property name="size" type="uint" value="40"/>
+      <property name="size" type="uint" value="45"/>
+      <property name="span-monitors" type="bool" value="false"/>
+      <property name="output-name" type="string" value="Primary"/>
     </property>
+    <property name="dark-mode" type="bool" value="false"/>
   </property>
   <property name="plugins" type="empty">
     <property name="plugin-1" type="string" value="whiskermenu"/>
@@ -37,11 +40,11 @@
       <property name="style" type="int" value="0"/>
     </property>
     <property name="plugin-3" type="string" value="tasklist">
-      <property name="flat-buttons" type="bool" value="false"/>
+      <property name="flat-buttons" type="bool" value="true"/>
       <property name="grouping" type="uint" value="1"/>
       <property name="show-handle" type="bool" value="false"/>
       <property name="show-labels" type="bool" value="false"/>
-      <property name="sort-order" type="int" value="0"/>
+      <property name="sort-order" type="uint" value="0"/>
       <property name="window-scrolling" type="bool" value="false"/>
     </property>
     <property name="plugin-4" type="string" value="separator">
@@ -77,14 +80,15 @@
         <value type="string" value="xnoise"/>
       </property>
       <property name="show-frame" type="bool" value="false"/>
-      <property name="size-max" type="uint" value="24"/>
+      <property name="size-max" type="uint" value="25"/>
       <property name="square-icons" type="bool" value="false"/>
     </property>
     <property name="plugin-6" type="string" value="pulseaudio">
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
+      <property name="mpris-players" type="string" value="firefox.instance1189"/>
     </property>
     <property name="plugin-7" type="string" value="clock">
-      <property name="digital-format" type="string" value="%R"/>
+      <property name="digital-format" type="string" value="%R%n%d/%m/%Y"/>
       <property name="flash-separators" type="bool" value="false"/>
       <property name="fuzziness" type="int" value="0"/>
       <property name="mode" type="int" value="2"/>
